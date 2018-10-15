@@ -1,21 +1,25 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
-
 const Navbar = ({
-  leftIconText='',
-  onLeftIconClick=()=>{},
-  rightIconText='',
-  onRightIconClick=()=>{},
+  clearAll,
+  isNewItemPage,
+  toggleNewPage
 }) => {
+
+  if (isNewItemPage) {
+    return (
+      <TouchableOpacity onPress={()=>toggleNewPage(false)}>
+          <Text style={styles.leftText}>Back</Text>
+      </TouchableOpacity>
+    )
+  }
+
   return (
     <View style={styles.navbar}>
-      <TouchableOpacity>
-        <Text style={styles.leftText}>Back</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.rightText}>Clear all</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={clearAll}>
+          <Text style={styles.rightText}>Clear all</Text>
+        </TouchableOpacity>
     </View>
   )
 }

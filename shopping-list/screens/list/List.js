@@ -6,12 +6,12 @@ import ListItem from './ListItem'
 
 export default class List extends React.Component {
   render() {
-    console.log("items: ", this.props.items)
     return (
       <View style={styles.container}>
         <FlatList
           data={this.props.items}
-          renderItem={ListItem}
+          renderItem={({item}) => <ListItem item={item} deleteItem={this.props.deleteItem} />}
+          keyExtractor={(item, index) => item.id}
         />
       </View>
     )
