@@ -4,44 +4,58 @@ import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 const Navbar = ({
   clearAll,
   isNewItemPage,
-  toggleNewPage
+  toggleNewPage,
+  areItemsPresent
 }) => {
 
   if (isNewItemPage) {
     return (
-      <TouchableOpacity onPress={()=>toggleNewPage(false)}>
-          <Text style={styles.leftText}>Back</Text>
-      </TouchableOpacity>
+      <View style={[styles.navbar, styles.pushLeft]}>
+        <TouchableOpacity onPress={()=>toggleNewPage(false)} style={styles.leftTextContainer}>
+            <Text style={styles.leftText}>Back</Text>
+        </TouchableOpacity>
+      </View>  
     )
   }
 
   return (
-    <View style={styles.navbar}>
-        <TouchableOpacity onPress={clearAll}>
-          <Text style={styles.rightText}>Clear all</Text>
-        </TouchableOpacity>
+    <View style={[styles.navbar, styles.pushRight]}>
+        { areItemsPresent &&
+          <TouchableOpacity onPress={clearAll} style={styles.rightTextContainer}>
+            <Text style={styles.rightText}>Clear all</Text>
+          </TouchableOpacity>
+        }
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   navbar: {
-    display: 'flex',
-    flexDirection: 'row',
     backgroundColor: '#fff',
+    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: 'row',
     height: 48,
     marginTop: 20
   },
+  pushLeft: {
+    justifyContent: 'flex-start'
+  },
+  pushRight: {
+    justifyContent: 'flex-end'
+  },
   leftText: {
-    fontSize: 20,
-    color: '#8CC1F5',
-    marginLeft: 12
+    fontSize: 16,
+    color: '#8CC1F5'
   },
   rightText: {
-    fontSize: 20,
-    color: '#8CC1F5',
+    fontSize: 16,
+    color: '#8CC1F5'
+  },
+  leftTextContainer: {
+    marginLeft: 12
+  },
+  rightTextContainer: {
     marginRight: 12
   }
 });

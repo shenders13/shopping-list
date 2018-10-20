@@ -1,11 +1,23 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import ListItem from './ListItem'
+import EmptyState from './EmptyState'
 
-// {this.props.items.map(item => <ListItem item={item}/>)}
 
 export default class List extends React.Component {
   render() {
+
+    const isEmptyState = this.props.items.length === 0
+
+    if (isEmptyState) {
+      return (
+        <View style={[styles.container, styles.center]}>
+          <EmptyState />
+        </View>
+      )
+    }
+
+
     return (
       <View style={styles.container}>
         <FlatList
@@ -26,5 +38,8 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 8,
     height: '100%'
+  },
+  center: {
+    alignItems: 'center',
   }
 });
