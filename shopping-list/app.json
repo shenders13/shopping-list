@@ -10,8 +10,7 @@
     "orientation": "portrait",
     "icon": "./assets/shopping-list.png",
     "splash": {
-      "image": "./assets/icon.png",
-      "backgroundColor": "#F6F6F6"
+      "image": "./assets/splash.png"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

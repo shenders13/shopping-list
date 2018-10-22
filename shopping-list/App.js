@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { Font, AppLoading } from 'expo';
+import { Font, AppLoading, SecureStore } from 'expo';
 import Navbar from './components/Navbar'
 import List from './screens/list/List'
 import PlusButton from './screens/list/PlusButton'
@@ -9,32 +9,48 @@ import NewItem from './screens/new-item/NewItem'
 export default class App extends React.Component {
 
   async componentWillMount() {
+
     await Font.loadAsync({
       'GTWalsheim': require('./assets/fonts/GT-Walsheim-Regular.ttf'),
     })
-    this.setState({ isFontLoaded: true })
+    console.log("Font loaded")
+    let items = await SecureStore.getItemAsync("items");
+    console.log("Initial itemss: ", items)
+    items = items ? JSON.parse(items) : []
+    console.log("RETRIEVED ITEMS: ", items)
+    this.setState({ isAppLoading: false, items })
   }
 
   constructor(props) {
     super(props)
     this.state = {
       isFontLoaded: false,
-      isNewItemPage: false,
-      items: [
-        { name: 'Orange Juice', id: '0'},
-        { name: 'Onions', id: '1'},
-      ]
+      isAppLoading: true,
+      items: []
     }
   }
 
-  clearAll = () => this.setState({items: []})
+  updateSecureStore = (newItems) => {
+    SecureStore.setItemAsync('items', JSON.stringify(newItems))
+    .then((items) => {
+      console.log("SET ITEMS: ", items)
+    });
+  }
 
-  reorderItems = newOrder => this.setState({items: newOrder})
+  clearAll = () => {
+    this.setState({items: []})
+    this.updateSecureStore([])
+  }
+
+  reorderItems = newOrder => {
+    this.setState({items: newOrder})
+    this.updateSecureStore(newOrder)
+  }
   
   deleteItem = id => {
-    this.setState({
-      items: this.state.items.filter(item => item.id !== id)
-    })
+    const items = this.state.items.filter(item => item.id !== id)
+    this.setState({items})
+    this.updateSecureStore(items)
   }
 
   createItem = newItem => {
@@ -42,18 +58,16 @@ export default class App extends React.Component {
     if (doesItemExist) {
       return
     }
-    this.setState(state=>{
-      return {
-        items: [...state.items, { name: newItem, id: newItem }]
-      }
-    })
+    const items = [...this.state.items, { name: newItem, id: newItem }]
+    this.setState({items})
+    this.updateSecureStore(items)
   }
 
   toggleNewPage = isNewItemPage => this.setState({isNewItemPage})
   
   render() {
     
-    if (!this.state.isFontLoaded) {
+    if (this.state.isAppLoading) {
       return <AppLoading />
     }
 
