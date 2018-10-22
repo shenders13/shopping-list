@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { Font, AppLoading } from 'expo';
 import Navbar from './components/Navbar'
 import List from './screens/list/List'
 import PlusButton from './screens/list/PlusButton'
@@ -7,21 +8,28 @@ import NewItem from './screens/new-item/NewItem'
 
 export default class App extends React.Component {
 
+  async componentWillMount() {
+    await Font.loadAsync({
+      'GTWalsheim': require('./assets/fonts/GT-Walsheim-Regular.ttf'),
+    })
+    this.setState({ isFontLoaded: true })
+  }
+
   constructor(props) {
     super(props)
     this.state = {
-      isNewItemPage: true,
+      isFontLoaded: false,
+      isNewItemPage: false,
       items: [
         { name: 'Orange Juice', id: '0'},
         { name: 'Onions', id: '1'},
-        { name: 'Milk', id: '2'},
-        { name: 'Mineral Water', id: '3'},
-        { name: 'Chocolate', id: '4'}
       ]
     }
   }
 
   clearAll = () => this.setState({items: []})
+
+  reorderItems = newOrder => this.setState({items: newOrder})
   
   deleteItem = id => {
     this.setState({
@@ -44,6 +52,12 @@ export default class App extends React.Component {
   toggleNewPage = isNewItemPage => this.setState({isNewItemPage})
   
   render() {
+    
+    if (!this.state.isFontLoaded) {
+      return <AppLoading />
+    }
+
+
     if (this.state.isNewItemPage) {
       return (
         <View>
@@ -68,7 +82,12 @@ export default class App extends React.Component {
           areItemsPresent={this.state.items.length > 0}
         />
         <View style={styles.container}>
-          <List items={this.state.items} deleteItem={this.deleteItem}/>
+          <List
+            items={this.state.items}
+            deleteItem={this.deleteItem}
+            toggleNewPage={this.toggleNewPage}
+            reorderItems={this.reorderItems}
+          />
           <View style={styles.plus}>
             <PlusButton
               toggleNewPage={this.toggleNewPage}

@@ -15,12 +15,8 @@ export default class App extends React.Component {
     this.props.toggleNewPage(false)
   }
 
-  onTextChange = (newItemName) => {
+  onChangeText = (newItemName) => {
     this.setState({newItemName})
-  }
-
-  onKeyPress = (event) => {
-    console.log("event.key: ", event.key)
   }
 
 
@@ -30,9 +26,10 @@ export default class App extends React.Component {
         <Text style={styles.formHeading}>New item</Text>
         <TextInput
           style={styles.input}
-          onChangeText={this.onTextChange}
-          onKeyPress={this.onKeyPress}
+          onChangeText={this.onChangeText}
           value={this.state.newItemName}
+          autoFocus={true}
+          placeholder="Enter new item"
         />
         <TouchableOpacity onPress={this.onCreate} style={styles.buttonContainer}>
           <View style={styles.button}>
@@ -59,7 +56,8 @@ const styles = StyleSheet.create({
     height: windowHeight - 68,
   },
   formHeading: {
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily: 'GTWalsheim',
     color: '#ADADAD'
   },
   input: {
@@ -71,7 +69,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 54,
     paddingLeft: 24,
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily: 'GTWalsheim',
     color: '#ADADAD',
     marginTop: 24
   },
@@ -82,14 +81,15 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#8CC1F5',
     borderRadius: 100,
-    height: 40,
+    height: 44,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%'
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily: 'GTWalsheim',
     color: 'white'
   }
 });

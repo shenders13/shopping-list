@@ -46,10 +46,12 @@ const styles = StyleSheet.create({
   },
   leftText: {
     fontSize: 16,
+    fontFamily: 'GTWalsheim',
     color: '#8CC1F5'
   },
   rightText: {
     fontSize: 16,
+    fontFamily: 'GTWalsheim',
     color: '#8CC1F5'
   },
   leftTextContainer: {

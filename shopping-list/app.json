@@ -1,18 +1,17 @@
 {
   "expo": {
     "name": "shopping-list",
-    "description": "This project is really great.",
+    "description": "Make a shopping list",
     "slug": "shopping-list",
     "privacy": "public",
-    "sdkVersion": "30.0.0",
+    "sdkVersion": "27.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/shopping-list.png",
     "splash": {
-      "image": "./assets/shopping-list.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/icon.png",
+      "backgroundColor": "#F6F6F6"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

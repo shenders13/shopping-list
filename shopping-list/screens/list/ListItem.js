@@ -2,14 +2,14 @@ import React from 'react'
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 
 
-const ListItem =(({item, deleteItem}) => {
+const ListItem =(({item, deleteItem, move, moveEnd}) => {
   return (
-    <View style={styles.container} key={item.id}>
+    <TouchableOpacity style={styles.container} key={item.id} onLongPress={move} onPressOut={moveEnd}>
       <Text style={styles.itemText}>{item.name}</Text>
       <TouchableOpacity onPress={()=>deleteItem(item.id)}>
         <View style={styles.checkbox} />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   )
 })
 

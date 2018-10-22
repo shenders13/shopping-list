@@ -4,8 +4,8 @@ import { StyleSheet, View, Text } from 'react-native';
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
-      <Text style={styles.emptyStateText}>Tap the big ass blue button</Text>
-      <Text style={styles.emptyStateText}>to make an item.</Text>
+      <Text style={styles.emptyStateText}>No items dude. You should</Text>
+      <Text style={styles.emptyStateText}>make one.</Text>
     </View>
   )
 }
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     marginTop: 32
   },
   emptyStateText: {
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily: 'GTWalsheim',
     color: '#ADADAD',
     lineHeight: 24
   }

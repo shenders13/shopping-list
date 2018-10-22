@@ -1,7 +1,16 @@
 import React from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Animated
+} from 'react-native'
 import ListItem from './ListItem'
 import EmptyState from './EmptyState'
+import DraggableFlatList from 'react-native-draggable-flatlist'
+
 
 
 export default class List extends React.Component {
@@ -12,7 +21,9 @@ export default class List extends React.Component {
     if (isEmptyState) {
       return (
         <View style={[styles.container, styles.center]}>
-          <EmptyState />
+          <TouchableOpacity onPress={()=>this.props.toggleNewPage(true)}>
+            <EmptyState />
+          </TouchableOpacity>
         </View>
       )
     }
@@ -20,10 +31,21 @@ export default class List extends React.Component {
 
     return (
       <View style={styles.container}>
-        <FlatList
+        <DraggableFlatList
           data={this.props.items}
-          renderItem={({item}) => <ListItem item={item} deleteItem={this.props.deleteItem} />}
-          keyExtractor={(item, index) => item.id}
+          onMoveEnd={({ data }) => this.props.reorderItems(data)}
+          renderItem={({ item, move, moveEnd }) => {
+            return (
+              <ListItem 
+                item={item}
+                deleteItem={this.props.deleteItem}
+                move={move}
+                moveEnd={moveEnd}
+
+              />
+            )
+          }}
+          keyExtractor={item => item.name}
         />
       </View>
     )
