@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   leftText: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'GTWalsheim',
     color: '#8CC1F5'
   },
   rightText: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'GTWalsheim',
     color: '#8CC1F5'
   },

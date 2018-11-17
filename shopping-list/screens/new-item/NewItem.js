@@ -19,11 +19,10 @@ export default class App extends React.Component {
     this.setState({newItemName})
   }
 
-
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.formHeading}>New item</Text>
+        <Text style={styles.formHeading}>Add new item to list</Text>
         <TextInput
           style={styles.input}
           onChangeText={this.onChangeText}
@@ -56,20 +55,20 @@ const styles = StyleSheet.create({
     height: windowHeight - 68,
   },
   formHeading: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'GTWalsheim',
     color: '#ADADAD'
   },
   input: {
     width: '100%',
-    height: 40,
+    height: 44,
     borderRadius: 100,
     backgroundColor: '#fff',
     borderColor: '#8CC1F5',
     borderWidth: 1,
     borderRadius: 54,
     paddingLeft: 24,
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'GTWalsheim',
     color: '#ADADAD',
     marginTop: 24
@@ -81,14 +80,14 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#8CC1F5',
     borderRadius: 100,
-    height: 44,
+    height: 47,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%'
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'GTWalsheim',
     color: 'white'
   }

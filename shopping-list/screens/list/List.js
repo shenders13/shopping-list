@@ -31,6 +31,8 @@ export default class List extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Text style={styles.topInstruction}>To rearrange your list, hold and drag an item.</Text>
+        <Text style={styles.bottomInstruction}>Tap gray tick to remove item.</Text>
         <DraggableFlatList
           data={this.props.items}
           onMoveEnd={({ data }) => this.props.reorderItems(data)}
@@ -63,5 +65,19 @@ const styles = StyleSheet.create({
   },
   center: {
     alignItems: 'center',
+  },
+  topInstruction: {
+    color: '#adadad',
+    marginLeft: 12,
+    marginTop: 24,
+    marginBottom: 0,
+    fontSize: 12,
+  },
+  bottomInstruction: {
+    color: '#adadad',
+    marginLeft: 12,
+    marginTop: 6,
+    marginBottom: 36,
+    fontSize: 12,
   }
 });

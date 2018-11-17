@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import Emoji from 'react-native-emoji';
+
 
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
-      <Text style={styles.emptyStateText}>No items dude. You should</Text>
-      <Text style={styles.emptyStateText}>make one.</Text>
+      <Text style={styles.emptyStateText}>No items <Emoji name="coffee" style={{fontSize: 18}} />. Tap the blue button</Text>
+      <Text style={styles.emptyStateText}>to add an item.</Text>
     </View>
   )
 }

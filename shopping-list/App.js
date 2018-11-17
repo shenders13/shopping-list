@@ -13,11 +13,23 @@ export default class App extends React.Component {
     await Font.loadAsync({
       'GTWalsheim': require('./assets/fonts/GT-Walsheim-Regular.ttf'),
     })
-    console.log("Font loaded")
     let items = await SecureStore.getItemAsync("items");
-    console.log("Initial itemss: ", items)
     items = items ? JSON.parse(items) : []
-    console.log("RETRIEVED ITEMS: ", items)
+
+    // items = [
+    //   { name: 'Brocolli', id: '1' },
+    //   { name: 'Water', id: '2' },
+    //   { name: 'Milk', id: '3' },
+    //   { name: 'Bottle', id: '4' },
+    //   { name: 'Soap', id: '5' },
+    //   { name: 'Magazines', id: '6' },
+    //   { name: 'Flowers', id: '7' },
+    //   { name: 'TV Guide', id: '8' },
+    //   { name: 'Toilet paper', id: '9' },
+    //   { name: 'Chocolate', id: '10' },
+    //   { name: 'Headphones', id: '11' },
+    // ]
+
     this.setState({ isAppLoading: false, items })
   }
 
