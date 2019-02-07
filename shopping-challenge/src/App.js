@@ -5,19 +5,40 @@ import Navbar from "./Navbar.js";
 import Cart from "./pages/Cart.js";
 import Home from "./pages/Home.js";
 
-const bikesInCatalogue = [
-  { id: 1, name: "City Rider" },
-  { id: 2, name: "France" },
-  { id: 3, name: "Fixie" }
-];
+import {
+  fetchBikesInCatalogue,
+  fetchDiscounts,
+  fetchInventory
+} from "./api/requests.js";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bikesInCatalogue: bikesInCatalogue,
+      bikesInCatalogue: [],
       bikesInCart: []
     };
+  }
+
+  componentDidMount() {
+    fetchBikesInCatalogue().then(response => {
+      const bikesInCatalogue = response.bikes;
+      fetchDiscounts().then(response => {
+        const discounts = response["bike discounts"];
+        const bikesWithUpdatedPrice = computeBikesWithDiscountedPrice(
+          bikesInCatalogue,
+          discounts
+        );
+        fetchInventory().then(response => {
+          const inventory = response["bikes"];
+          const bikesWithInventory = computeBikesWithInventory(
+            bikesWithUpdatedPrice,
+            inventory
+          );
+          this.setState({ bikesInCatalogue: bikesWithInventory });
+        });
+      });
+    });
   }
 
   addBikeToCard = bikeId => {
@@ -55,3 +76,27 @@ class App extends Component {
 }
 
 export default App;
+
+const computeBikesWithDiscountedPrice = (bikesInCatalogue, discounts) => {
+  return bikesInCatalogue.map(originalPricedBike => {
+    return {
+      ...originalPricedBike,
+      price:
+        (1 -
+          discounts.find(bike => bike["bike id"] === originalPricedBike.id)
+            .discount) *
+        originalPricedBike.price
+    };
+  });
+};
+
+const computeBikesWithInventory = (bikesWithUpdatedPrice, inventory) => {
+  return bikesWithUpdatedPrice.map(bike => {
+    return {
+      ...bike,
+      isOutOfStock:
+        inventory.find(inventoryBike => inventoryBike["bike id"] === bike.id)
+          .inventory === 0
+    };
+  });
+};
