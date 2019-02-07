@@ -10,6 +10,7 @@ class Cart extends Component {
           return (
             <div className="bike-card" key={bike.id}>
               <div>ID: {bike.id}</div>
+              <div>Price: ${bike.price}</div>
               <div>Name: {bike.name}</div>
             </div>
           );

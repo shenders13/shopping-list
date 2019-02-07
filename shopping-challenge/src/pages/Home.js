@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import '../App.css';
-
+import React, { Component } from "react";
+import "../App.css";
 
 class Home extends Component {
   render() {
@@ -9,13 +8,21 @@ class Home extends Component {
         <h2>Bike Catalogue</h2>
         {this.props.bikesInCatalogue.map(bike => {
           return (
-            <div className="bike-card" key={bike.id} onClick={()=>this.props.addBikeToCard(bike.id)}>
-                <div>ID: {bike.id}</div>
-                <div>Name: {bike.name}</div>
-                <button>Add to Cart</button>
+            <div
+              className="bike-card"
+              key={bike.id}
+              onClick={() => this.props.addBikeToCard(bike.id)}
+            >
+              <div>ID: {bike.id}</div>
+              <div>Name: {bike.name}</div>
+              <div>Price: ${bike.price}</div>
+              <button>Add to Cart</button>
             </div>
-        )
-    }
+          );
+        })}
+      </div>
+    );
+  }
 }
 
-export default Home
+export default Home;
