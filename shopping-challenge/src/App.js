@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./Navbar.js";
 import Cart from "./pages/Cart.js";
 import Home from "./pages/Home.js";
+import { fetchBikesInCatalogue } from "./api/requests.js";
 
 const bikesInCatalogue = [
   { id: 1, name: "City Rider" },
@@ -18,6 +19,12 @@ class App extends Component {
       bikesInCatalogue: bikesInCatalogue,
       bikesInCart: []
     };
+  }
+
+  componentDidMount() {
+    fetchBikesInCatalogue().then(response => {
+      this.setState({ bikesInCatalogue: response.bikes });
+    });
   }
 
   addBikeToCard = bikeId => {
@@ -43,11 +50,10 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/cart" component={() => (
-              <Cart
-                  bikesInCart={this.state.bikesInCart}
-              />
-          )} />
+          <Route
+            path="/cart"
+            component={() => <Cart bikesInCart={this.state.bikesInCart} />}
+          />
         </div>
       </Router>
     );
